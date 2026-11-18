@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192">
+  <rect width="192" height="192" rx="40" fill="#1a1a19"/>
+  <!-- A probe: stem, tip, and a heat trace. -->
+  <path d="M96 34v96" stroke="#c3c2b7" stroke-width="12" stroke-linecap="round" fill="none"/>
+  <circle cx="96" cy="142" r="19" fill="#eb6834"/>
+  <path d="M48 112c16-26 32 6 48-20s32 6 48-20" stroke="#3987e5" stroke-width="9"
+        stroke-linecap="round" fill="none" opacity="0.9"/>
+</svg>

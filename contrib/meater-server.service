@@ -1,0 +1,30 @@
+# Run meater-server as your own user, so the web UI is up whenever the
+# machine is. Install with:
+#
+#   mkdir -p ~/.config/systemd/user
+#   cp contrib/meater-server.service ~/.config/systemd/user/
+#   systemctl --user daemon-reload
+#   systemctl --user enable --now meater-server
+#   systemctl --user status meater-server
+#
+# Edit ExecStart if you cloned somewhere other than ~/git/meater-server.
+# To keep it running when you are not logged in: sudo loginctl enable-linger $USER
+
+[Unit]
+Description=MEATER probe server (web UI + ESPHome API)
+After=bluetooth.target network-online.target
+Wants=bluetooth.target
+
+[Service]
+Type=simple
+ExecStart=%h/git/meater-server/.venv/bin/meater-server -v run
+WorkingDirectory=%h/git/meater-server
+Restart=on-failure
+RestartSec=5
+# A clean stop lets the server release its Bluetooth connections, so the
+# probes go back to advertising instead of staying silently connected.
+KillSignal=SIGTERM
+TimeoutStopSec=20
+
+[Install]
+WantedBy=default.target

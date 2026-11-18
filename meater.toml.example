@@ -1,0 +1,56 @@
+# Copy to meater.toml (or ~/.config/meater-server/config.toml) and edit.
+# Every value here is a default unless noted; delete what you do not need.
+
+# Units for the web UI only.  The ESPHome API always reports Celsius, which is
+# what Home Assistant expects.
+units = "C"          # or "F"
+
+[bluetooth]
+# adapter = "hci0"   # omit to use the default adapter
+# Probe MAC addresses, in slot order.  Run `meater-server scan` to find them.
+# Leave empty to bind whatever probe turns up first.
+addresses = []
+# How many probes to expose.  Fixed at startup, because Home Assistant reads
+# the entity list once per connection.  Raised automatically to fit addresses.
+slots = 1
+stale_after = 45.0   # seconds without a reading before a probe reads as gone
+
+[web]
+enabled = true
+host = "0.0.0.0"     # 0.0.0.0 so a phone on the same wifi can reach it
+port = 8080
+
+[esphome]
+enabled = true
+host = "0.0.0.0"
+port = 6053
+name = "meater"              # becomes meater.local
+friendly_name = "MEATER"
+mdns = true                  # advertise for Home Assistant auto-discovery
+# Generate with `meater-server keygen`, then paste the same key into the
+# Home Assistant ESPHome integration.  Omit for an unencrypted endpoint.
+# encryption_key = "..."
+
+[notify]
+# Push an alert to an ntfy topic when a cook is ready to pull (urgent priority)
+# and when it has finished resting.  Sent by the server, so it works with no
+# browser open.  Omit to send nothing.
+# ntfy_url = "https://ntfy.sh/my-grill"
+# ntfy_token = "tk_..."      # only if the topic needs an access token
+
+# Override a shipped preset, or add your own.  Matching `id` edits the builtin;
+# a new `id` appends.
+# [[presets]]
+# id = "beef_brisket"
+# rest_minutes = 90
+#
+# [[presets]]
+# id = "goose"
+# label = "Whole goose"
+# category = "Poultry"
+# carryover_c = 3.0
+# rest_minutes = 20
+# [[presets.donenesses]]
+# id = "done"
+# label = "Cooked"
+# target_c = 74.0

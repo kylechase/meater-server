@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "meater-server"
+version = "0.1.0"
+description = "Local MEATER probe server: BLE readings, cook presets, time-remaining estimates, web UI, and an ESPHome native API endpoint."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+dependencies = [
+    "bleak>=0.22",
+    "aiohttp>=3.9",
+    # Used for the ESPHome native-API protobuf definitions, the Noise
+    # cipher backend, and mDNS advertisement.
+    "aioesphomeapi>=24",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "pytest-asyncio>=0.23", "ruff>=0.5"]
+
+[project.scripts]
+meater-server = "meater_server.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+meater_server = ["static/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+
+[tool.ruff]
+line-length = 100
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B", "SIM", "RUF"]

@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#fcfcfb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1a1a19" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MEATER">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon.svg">
+<title>MEATER</title>
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><text y='13' font-size='13'>&#127828;</text></svg>">
+</head>
+<body>
+<div id="alarm" role="alert" hidden>
+  <div id="alarm-text"></div>
+  <button id="alarm-dismiss" class="btn">Dismiss</button>
+</div>
+
+<div class="wrap">
+  <header>
+    <h1>MEATER</h1>
+    <div class="spacer"></div>
+    <div class="toggle" role="group" aria-label="Temperature units">
+      <button id="unit-c" aria-pressed="true">&deg;C</button>
+      <button id="unit-f" aria-pressed="false">&deg;F</button>
+    </div>
+    <div class="toggle" role="group" aria-label="Colour theme">
+      <button id="theme" aria-pressed="false" title="Toggle dark mode">&#9680;</button>
+    </div>
+  </header>
+
+  <div id="probes"></div>
+
+  <div id="connection" class="card offline" hidden>
+    <strong>Lost contact with the server.</strong>
+    <p class="note" style="margin-top:6px">Retrying&hellip; readings below may be stale.</p>
+  </div>
+</div>
+
+<dialog id="picker">
+  <form method="dialog" class="dialog-head">
+    <strong id="picker-title">Choose a cook</strong>
+    <button class="btn" value="cancel">Close</button>
+  </form>
+  <div class="dialog-body" id="picker-body"></div>
+</dialog>
+
+<script src="app.js"></script>
+</body>
+</html>
